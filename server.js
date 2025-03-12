@@ -5,8 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin');
 
-// Initialize Firebase Admin SDK
-const serviceAccount = require('./stark-innovationz-firebase-adminsdk-fbsvc-1125afc745.json');
+const serviceAccount = JSON.parse(
+    Buffer.from(process.env.FIREBASE_CREDENTIALS, "base64").toString("utf8")
+);
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://stark-innovationz-default-rtdb.asia-southeast1.firebasedatabase.app"
