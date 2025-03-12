@@ -168,10 +168,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+const API_BASE_URL = '/api/reviews'; // Use relative path
+
 // Fetch and display reviews
 const fetchReviews = async () => {
     try {
-        const response = await fetch('http://localhost:5500/api/reviews');
+        const response = await fetch(API_BASE_URL);
         const reviews = await response.json();
         const reviewsContainer = document.getElementById('reviewsContainer');
         reviewsContainer.innerHTML = reviews
@@ -204,7 +206,7 @@ const postReview = async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:5500/api/reviews', {
+        const response = await fetch(API_BASE_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -222,7 +224,6 @@ const postReview = async () => {
         console.error('Error posting review:', error);
     }
 };
-
 
 // Attach event listeners
 document.getElementById('postReview').addEventListener('click', postReview);
