@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 5500; // Use Render's assigned port
 
 // Middleware
 app.use(cors());
