@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const admin = require('firebase-admin');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -10,10 +11,14 @@ const PORT = process.env.PORT || 5500;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Serve static files from "public" directory
+const publicPath = "F:/stark-innovationz/public";
+app.use(express.static(publicPath));
+
 // 🔥 Load Firebase credentials from environment variable
 if (!process.env.FIREBASE_CREDENTIALS) {
     console.error("❌ FIREBASE_CREDENTIALS is not set in environment variables!");
-    process.exit(1); // Stop execution if credentials are missing
+    process.exit(1);
 }
 
 const serviceAccount = JSON.parse(
@@ -94,9 +99,9 @@ app.delete('/api/reviews/:id', verifyToken, (req, res) => {
     res.status(204).send();
 });
 
-// ✅ API: Health Check
+// ✅ Serve index.html on root URL
 app.get('/', (req, res) => {
-    res.send("🔥 Stark InnovationZ Firebase API is Running!");
+    res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 // ✅ Start Server
