@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stark InnovationZ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <!-- Logo on the left -->
+            <div class="logo">
+                <img src="./LOGO.png" alt="Logo" class="logo-img">
+                <span>Stark InnovationZ</span>
+            </div>
+    
+            <!-- Hamburger Menu Icon for Mobile -->
+            <div class="menu-btn" id="menuBtn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+    
+            <!-- Navigation Links on the right -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <div class="theme-toggle" id="themeToggle">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="EFFORTLESS INNOVATION">EFFORTLESS INNOVATION</h1>
+            <h2>ONE STEP AWAY!</h2>
+            <p>Transforming ideas into reality through cutting-edge solutions</p>
+            <a href="#services" class="cta-btn">Explore Our Services</a>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Poster Design</h3>
+                <p>Creative and eye-catching designs that capture attention</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-certificate"></i>
+                <h3>Patent Services</h3>
+                <p>Protecting your intellectual property rights</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Software Solutions</h3>
+                <p>Custom software development for your unique needs</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-hands-helping"></i>
+                <h3>Hands-On Training</h3>
+                <p>Practical learning experiences for real-world success</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-file-alt"></i>
+                <h3>Paper Documentation</h3>
+                <p>Comprehensive documentation services</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-globe"></i>
+                <h3>Website Development</h3>
+                <p>Creating stunning and functional websites</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-microchip"></i>
+                <h3>Hardware Development</h3>
+                <p>Innovative hardware solutions for modern challenges</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Our Projects</h2>
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="software">Software</button>
+            <button class="filter-btn" data-filter="hardware">Hardware</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" data-category="software">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=60" alt="Project">
+                <div class="project-info">
+                    <h3>Smart City Management System</h3>
+                    <p>IoT-based solution for urban infrastructure monitoring</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>IoT</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="hardware">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60" alt="Project">
+                <div class="project-info">
+                    <h3>Automated Farming System</h3>
+                    <p>Smart agriculture solution with sensor integration</p>
+                    <div class="project-tech">
+                        <span>Arduino</span>
+                        <span>Sensors</span>
+                        <span>ML</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="design">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop&q=60" alt="Project">
+                <div class="project-info">
+                    <h3>Brand Identity Design</h3>
+                    <p>Complete branding solution for tech startups</p>
+                    <div class="project-tech">
+                        <span>Branding</span>
+                        <span>UI/UX</span>
+                        <span>Print</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews">
+        <h2>What Our Clients Say</h2>
+        <div class="reviews-container" id="reviewsContainer"></div>
+    
+        <!-- Add Review Section -->
+        <div class="add-review">
+            <h3>Add Your Review</h3>
+            <input type="text" id="reviewerName" placeholder="Enter your name" required>
+            <select id="reviewStars">
+                <option value="5">★★★★★ (5 Stars)</option>
+                <option value="4">★★★★☆ (4 Stars)</option>
+                <option value="3">★★★☆☆ (3 Stars)</option>
+                <option value="2">★★☆☆☆ (2 Stars)</option>
+                <option value="1">★☆☆☆☆ (1 Star)</option>
+            </select>
+            <textarea id="reviewText" placeholder="Write your review here..." required></textarea>
+            <button id="postReview">Post Review</button>
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <h2>Our Leadership</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Team member">
+                <h3>Arun G R</h3>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Team member">
+                <h3>Venkatapathi K</h3>
+                <p>Founder & CFO</p>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Team member">
+                <h3>Mahalakshmi S</h3>
+                <p>Co-founder</p>
+            </div>
+        </div>
+
+        <h2>Our Advisors</h2>
+        <div class="advisors-grid">
+            <div class="advisor">
+                <h3>Dr. R. Azhagumurugan</h3>
+                <p>HOD, EEE, Sri Sairam Engineering College</p>
+            </div>
+            <div class="advisor">
+                <h3>Dr. T. Porselvi</h3>
+                <p>Professor, EEE, Sri Sairam Engineering College</p>
+            </div>
+            <div class="advisor">
+                <h3>Dr. B. Meenakshi</h3>
+                <p>Professor, EEE, Sri Sairam Engineering College</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-envelope"></i> office.starkinnovationz@gmail.com</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <textarea id="message" placeholder="Message" required></textarea>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Stark InnovationZ. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
