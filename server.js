@@ -19,22 +19,30 @@ const reviewsFilePath = path.join(__dirname, 'reviews.json');
 
 // Helper function to read reviews from the file
 const readReviews = () => {
-    if (!fs.existsSync(reviewsFilePath)) {
-        fs.writeFileSync(reviewsFilePath, JSON.stringify([]));
+    try {
+        if (!fs.existsSync(reviewsFilePath)) {
+            fs.writeFileSync(reviewsFilePath, JSON.stringify([]));
+        }
+        const data = fs.readFileSync(reviewsFilePath, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error("Error reading reviews:", error);
+        return [];
     }
-    const data = fs.readFileSync(reviewsFilePath, 'utf-8');
-    return JSON.parse(data);
 };
 
 // Helper function to write reviews to the file
 const writeReviews = (reviews) => {
-    fs.writeFileSync(reviewsFilePath, JSON.stringify(reviews, null, 2));
+    try {
+        fs.writeFileSync(reviewsFilePath, JSON.stringify(reviews, null, 2));
+    } catch (error) {
+        console.error("Error writing reviews:", error);
+    }
 };
 
 // API to get all reviews
 app.get('/api/reviews', (req, res) => {
-    const reviews = readReviews();
-    res.json(reviews);
+    res.json(readReviews());
 });
 
 // API to add a new review
@@ -46,7 +54,7 @@ app.post('/api/reviews', (req, res) => {
 
     const reviews = readReviews();
     const newReview = {
-        id: Date.now(), // Unique ID for the review
+        id: Date.now(),
         name,
         stars,
         text,
@@ -79,5 +87,5 @@ app.get('*', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
