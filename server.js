@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from "public" directory
-const publicPath = "F:/stark-innovationz/public";
+const publicPath = "./public";
 app.use(express.static(publicPath));
 
 // 🔥 Load Firebase credentials from environment variable
