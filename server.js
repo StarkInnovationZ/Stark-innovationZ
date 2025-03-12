@@ -1,18 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
 const admin = require('firebase-admin');
-
-const serviceAccount = JSON.parse(
-    Buffer.from(process.env.FIREBASE_CREDENTIALS, "base64").toString("utf8")
-);
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://stark-innovationz-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
 
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -21,7 +10,23 @@ const PORT = process.env.PORT || 5500;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Verify Firebase Token Middleware
+// 🔥 Load Firebase credentials from environment variable
+if (!process.env.FIREBASE_CREDENTIALS) {
+    console.error("❌ FIREBASE_CREDENTIALS is not set in environment variables!");
+    process.exit(1); // Stop execution if credentials are missing
+}
+
+const serviceAccount = JSON.parse(
+    Buffer.from(process.env.FIREBASE_CREDENTIALS, "base64").toString("utf8")
+);
+
+// Initialize Firebase Admin SDK
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://stark-innovationz-default-rtdb.asia-southeast1.firebasedatabase.app"
+});
+
+// ✅ Middleware: Verify Firebase Token
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization?.split('Bearer ')[1];
     if (!token) {
@@ -33,24 +38,34 @@ const verifyToken = async (req, res, next) => {
         req.user = decodedToken;
         next();
     } catch (error) {
+        console.error("🚫 Firebase Token Verification Failed:", error.message);
         return res.status(403).json({ error: "Unauthorized - Invalid token" });
     }
 };
 
-// API to get all reviews (Public Access)
+// 📌 Dummy Data for Reviews (Replace with DB later)
+let reviews = [];
+
+// 📌 Read Reviews
+const readReviews = () => reviews;
+
+// 📌 Write Reviews
+const writeReviews = (data) => {
+    reviews = data;
+};
+
+// ✅ API: Get All Reviews (Public)
 app.get('/api/reviews', (req, res) => {
-    const reviews = readReviews();
-    res.json(reviews);
+    res.json(readReviews());
 });
 
-// API to add a new review (Only Authenticated Users)
+// ✅ API: Add a Review (Authenticated Users Only)
 app.post('/api/reviews', verifyToken, (req, res) => {
     const { name, stars, text } = req.body;
     if (!name || !stars || !text) {
         return res.status(400).json({ error: 'Name, stars, and text are required' });
     }
 
-    const reviews = readReviews();
     const newReview = {
         id: Date.now(),
         name,
@@ -58,19 +73,20 @@ app.post('/api/reviews', verifyToken, (req, res) => {
         text,
         timestamp: new Date().toISOString(),
     };
-    reviews.push(newReview);
-    writeReviews(reviews);
+
+    const updatedReviews = [...readReviews(), newReview];
+    writeReviews(updatedReviews);
 
     res.status(201).json(newReview);
 });
 
-// API to delete a review (Only Authenticated Users)
+// ✅ API: Delete a Review (Authenticated Users Only)
 app.delete('/api/reviews/:id', verifyToken, (req, res) => {
     const { id } = req.params;
-    const reviews = readReviews();
-    const updatedReviews = reviews.filter((review) => review.id !== parseInt(id));
+    const reviewsList = readReviews();
+    const updatedReviews = reviewsList.filter((review) => review.id !== parseInt(id));
 
-    if (reviews.length === updatedReviews.length) {
+    if (reviewsList.length === updatedReviews.length) {
         return res.status(404).json({ error: 'Review not found' });
     }
 
@@ -78,7 +94,12 @@ app.delete('/api/reviews/:id', verifyToken, (req, res) => {
     res.status(204).send();
 });
 
-// Start the server
+// ✅ API: Health Check
+app.get('/', (req, res) => {
+    res.send("🔥 Stark InnovationZ Firebase API is Running!");
+});
+
+// ✅ Start Server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
